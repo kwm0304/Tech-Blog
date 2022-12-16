@@ -13,7 +13,10 @@ router.get('/', (req, res) => {
       'title',
       'created_at',
     ],
-    include: [
+    include: [{
+      model: User,
+      attributes: ['username']
+    },
       {
         model: Comment,
         attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
@@ -21,11 +24,8 @@ router.get('/', (req, res) => {
           model: User,
           attributes: ['username']
         }
-      },
-      {
-        model: User,
-        attributes: ['username']
       }
+      
     ]
   })
     .then(dbPostData => res.json(dbPostData))
@@ -42,10 +42,14 @@ router.get('/:id', (req, res) => {
     },
     attributes: [
       'id',
+      'content',
       'title',
       'created_at',
     ],
-    include: [
+    include: [{
+      model: User,
+      attributes: ['username']
+    },
       {
         model: Comment,
         attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
@@ -53,11 +57,8 @@ router.get('/:id', (req, res) => {
           model: User,
           attributes: ['username']
         }
-      },
-      {
-        model: User,
-        attributes: ['username']
       }
+      
     ]
   })
     .then(dbPostData => {
@@ -92,7 +93,8 @@ router.post('/', withAuth, (req, res) => {
 router.put('/:id', withAuth, (req, res) => {
   Post.update(
     {
-      title: req.body.title
+      title: req.body.title,
+      content: req.body.post_content
     },
     {
       where: {

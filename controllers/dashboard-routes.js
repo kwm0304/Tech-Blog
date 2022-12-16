@@ -14,6 +14,7 @@ router.get('/', withAuth, (req, res) => {
     attributes: [
       'id',
       'title',
+      'content',
       'created_at',
     ],
     include: [
@@ -42,10 +43,10 @@ router.get('/', withAuth, (req, res) => {
 });
 
 router.get('/edit/:id', withAuth, (req, res) => {
-  Post.findByPk(req.params.id, {
+  Post.findOne(req.params.id, {
     attributes: [
       'id',
-      
+      'content',
       'title',
       'created_at',
     ],
@@ -80,5 +81,11 @@ router.get('/edit/:id', withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+
+router.get('/new', (req,res) => {
+  res.render('add-post', {
+    loggedIn: true
+  })
+})
 
 module.exports = router;

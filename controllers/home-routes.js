@@ -4,13 +4,12 @@ const { Post, User, Comment } = require('../models');
 
 // get all posts for homepage
 router.get('/', (req, res) => {
-  console.log('======================');
   Post.findAll({
     attributes: [
       'id',
       'title',
       'content',
-      'created_at',
+      'created_at'
     ],
     include: [
       {
@@ -49,8 +48,8 @@ router.get('/post/:id', (req, res) => {
     },
     attributes: [
       'id',
-      'content',
       'title',
+      'content',
       'created_at',
     ],
     include: [
@@ -105,4 +104,7 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+router.get('*', (req, res) => {
+  res.status(404).send('oops')
+})
 module.exports = router;

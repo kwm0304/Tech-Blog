@@ -1,9 +1,5 @@
 async function logout(event) {
-    event.preventDefault();
-  
-  
-    if (username && password) {
-      const response = await fetch('/api/users/login', {
+      const response = await fetch('/api/users/logout', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' }
       });
@@ -14,6 +10,5 @@ async function logout(event) {
         alert(response.statusText);
       }
     }
-  }
 
-  document.querySelector('#logout').addEventListener('submit', logout);
+    document.querySelector('#logout').addEventListener('submit', logout);
